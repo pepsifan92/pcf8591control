@@ -9,17 +9,17 @@
 	</parent>
 
 	<properties>
-		<bundle.symbolicName>org.openhab.binding.pcf8574control</bundle.symbolicName>
-		<bundle.namespace>org.openhab.binding.pcf8574control</bundle.namespace>
-		<deb.name>openhab-addon-binding-pcf8574control</deb.name>
-		<deb.description>openhab addon binding pcf8574control</deb.description>
+		<bundle.symbolicName>org.openhab.binding.pcf8591control</bundle.symbolicName>
+		<bundle.namespace>org.openhab.binding.pcf8591control</bundle.namespace>
+		<deb.name>openhab-addon-binding-pcf8591control</deb.name>
+		<deb.description>openhab addon binding pcf8591control</deb.description>
 	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openhab.binding</groupId>
-	<artifactId>org.openhab.binding.pcf8574control</artifactId>
+	<artifactId>org.openhab.binding.pcf8591control</artifactId>
 
-	<name>openHAB pcf8574control Binding</name>
+	<name>openHAB pcf8591control Binding</name>
 
 	<packaging>eclipse-plugin</packaging>
 

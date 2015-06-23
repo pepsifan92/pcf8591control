@@ -9,12 +9,12 @@
     http://www.eclipse.org/legal/epl-v10.html
 
 -->
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.openhab.binding.pcf8574control.genericbindingprovider">
-   <implementation class="org.openhab.binding.pcf8574control.internal.pcf8574controlGenericBindingProvider"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.openhab.binding.pcf8591control.genericbindingprovider">
+   <implementation class="org.openhab.binding.pcf8591control.internal.pcf8591controlGenericBindingProvider"/>
    
    <service>
       <provide interface="org.openhab.model.item.binding.BindingConfigReader"/>
-      <provide interface="org.openhab.binding.pcf8574control.pcf8574controlBindingProvider"/>
+      <provide interface="org.openhab.binding.pcf8591control.pcf8591controlBindingProvider"/>
    </service>
    
 </scr:component>

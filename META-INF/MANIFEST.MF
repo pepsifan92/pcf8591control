@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
-Private-Package: org.openhab.binding.pcf8574control.internal
-Ignore-Package: org.openhab.binding.pcf8574control.internal
+Private-Package: org.openhab.binding.pcf8591control.internal
+Ignore-Package: org.openhab.binding.pcf8591control.internal
 Bundle-License: http://www.eclipse.org/legal/epl-v10.html
-Bundle-Name: openHAB PCF8574Control Binding
-Bundle-SymbolicName: org.openhab.binding.pcf8574control
+Bundle-Name: openHAB pcf8591control Binding
+Bundle-SymbolicName: org.openhab.binding.pcf8591control
 Bundle-Vendor: openHAB.org
 Bundle-Version: 1.0.0
 Bundle-ManifestVersion: 2
-Bundle-Description: This is the PCF8574Control binding of the open Home Automation Bus (openHAB)
+Bundle-Description: This is the pcf8591control binding of the open Home Automation Bus (openHAB)
 Import-Package: org.apache.commons.lang,
- org.openhab.binding.pcf8574control,
+ org.openhab.binding.pcf8591control,
  org.openhab.core.binding,
  org.openhab.core.events,
  org.openhab.core.items,
@@ -21,7 +21,7 @@ Import-Package: org.apache.commons.lang,
  org.osgi.service.component,
  org.osgi.service.event,
  org.slf4j
-Export-Package: org.openhab.binding.pcf8574control
+Export-Package: org.openhab.binding.pcf8591control
 Bundle-DocURL: http://www.openhab.org
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Service-Component: OSGI-INF/binding.xml, OSGI-INF/genericbindingprovider.xml

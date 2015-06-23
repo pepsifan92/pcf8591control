@@ -9,8 +9,8 @@
     http://www.eclipse.org/legal/epl-v10.html
 
 -->
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" activate="activate" modified="modified" deactivate="deactivate" name="org.openhab.binding.pcf8574control.binding" immediate="true" configuration-pid="org.openhab.pcf8574control">
-	<implementation class="org.openhab.binding.pcf8574control.internal.pcf8574controlBinding" />
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" activate="activate" modified="modified" deactivate="deactivate" name="org.openhab.binding.pcf8591control.binding" immediate="true" configuration-pid="org.openhab.pcf8591control">
+	<implementation class="org.openhab.binding.pcf8591control.internal.pcf8591controlBinding" />
 
 	<service>
 		<provide interface="org.osgi.service.event.EventHandler" />
@@ -21,7 +21,7 @@
 		interface="org.openhab.core.events.EventPublisher" name="EventPublisher"
 		policy="dynamic" unbind="unsetEventPublisher" />
 	<reference bind="addBindingProvider" cardinality="1..n"
-		interface="org.openhab.binding.pcf8574control.pcf8574controlBindingProvider" name="pcf8574controlBindingProvider"
+		interface="org.openhab.binding.pcf8591control.pcf8591controlBindingProvider" name="pcf8591controlBindingProvider"
 		policy="dynamic" unbind="removeBindingProvider" />
 	
 </scr:component>

@@ -1,4 +1,4 @@
-package org.openhab.binding.pcf8574control.internal;
+package org.openhab.binding.pcf8591control.internal;
 
 import com.pi4j.io.gpio.Pin;
 

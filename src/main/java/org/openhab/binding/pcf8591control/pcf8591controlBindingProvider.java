@@ -6,15 +6,13 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.openhab.binding.pcf8574control;
+package org.openhab.binding.pcf8591control;
 
 import java.util.TreeMap;
 
 import org.openhab.core.binding.BindingProvider;
 
-import com.pi4j.gpio.extension.pcf.PCF8574GpioProvider;
-import com.pi4j.io.gpio.GpioPinDigital;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.wiringpi.GpioInterruptListener;
 
 
@@ -22,14 +20,14 @@ import com.pi4j.wiringpi.GpioInterruptListener;
  * @author MichaelP
  * @since 1.0
  */
-public interface pcf8574controlBindingProvider extends BindingProvider {
+public interface pcf8591controlBindingProvider extends BindingProvider {
 	/**
 	 * Map of all configured PCA9685 boards. 
 	 * Key=I2CAddress, Value=PCA9685PwmControl Object.
 	 * If all given items have the same I2C Address, it should exist only one Map-Entry).    
 	 * @return Returns the map with all configured Boards.
 	 */
-	public TreeMap<Integer, PCF8574GpioProvider> getPCF8574Map();
+	public TreeMap<Integer, I2CDevice> getPCF8591Map();
 	
 	/**
 	 * Get the I2C Address of the given Item
@@ -47,20 +45,9 @@ public interface pcf8574controlBindingProvider extends BindingProvider {
 	
 	
 	/**
-	 * Get the PWM value of the given Item 
-	 * @param itemName Name of the Item 
-	 * @return Returns the PWM value. (0-100)
-	 */
-	public boolean getIsHigh(String itemName);
-	public void setIsHigh(String itemName, boolean value);
-	
-	/**
 	 * Is the given Item already configured?
 	 * @param itemName Name of the Item 
 	 * @return Returns if the Item is configured. (true = is configured)
 	 */
-	public boolean isItemConfigured(String itemName);
-	
-	public void setupInterruptPinForPortExpanderInt(GpioInterruptListener pcf8574InterruptListener);
-	
+	public boolean isItemConfigured(String itemName);	
 }
