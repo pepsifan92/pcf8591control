@@ -14,9 +14,7 @@ import java.util.TreeMap;
 import org.openhab.binding.pcf8591control.pcf8591controlBindingProvider;
 import org.openhab.core.binding.BindingConfig;
 import org.openhab.core.items.Item;
-import org.openhab.core.library.items.ContactItem;
 import org.openhab.core.library.items.NumberItem;
-import org.openhab.core.library.items.SwitchItem;
 import org.openhab.model.item.binding.AbstractGenericBindingProvider;
 import org.openhab.model.item.binding.BindingConfigParseException;
 import org.slf4j.Logger;
@@ -38,14 +36,13 @@ public class pcf8591controlGenericBindingProvider extends AbstractGenericBinding
 	private static final Logger logger = 
 			LoggerFactory.getLogger(pcf8591controlGenericBindingProvider.class);
 	
-	I2CBus bus;
+	I2CBus 	bus;
 	private TreeMap<Integer, I2CDevice> PCF8591Map = new TreeMap<>();
 	
 	public pcf8591controlGenericBindingProvider() {
 		 try {
 			bus = I2CFactory.getInstance(I2CBus.BUS_1);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -63,10 +60,10 @@ public class pcf8591controlGenericBindingProvider extends AbstractGenericBinding
 	 */
 	@Override
 	public void validateItemType(Item item, String bindingConfig) throws BindingConfigParseException {
-		if (!(item instanceof SwitchItem  || item instanceof ContactItem || item instanceof NumberItem)) {
+		if (!(item instanceof NumberItem)) {
 			throw new BindingConfigParseException("item '" + item.getName()
 					+ "' is of type '" + item.getClass().getSimpleName()
-					+ "', only Switch- and DimmerItems and ContactItems are allowed - please check your *.items configuration");
+					+ "', only NumberItems are allowed - please check your *.items configuration");
 		}
 	}
 	
@@ -77,7 +74,6 @@ public class pcf8591controlGenericBindingProvider extends AbstractGenericBinding
 	public void processBindingConfiguration(String context, Item item, String bindingConfig) throws BindingConfigParseException {		
 		super.processBindingConfiguration(context, item, bindingConfig);
 			
-		//Format: "I2CAddress;PinNumber;isOutput" => f.e. "32;0;out" or "32;1;in"
 		String[] properties = bindingConfig.split(";");		
 		pcf8591controlConfig config = new pcf8591controlConfig();
 		try{
@@ -87,16 +83,12 @@ public class pcf8591controlGenericBindingProvider extends AbstractGenericBinding
 			
 			checkOfValidValues(config, item.getName());
 			addBindingConfig(item, config);	
-			handleBoards(config); //Create new PCF8591GpioProvider for eventually new boards.
+			handleBoards(config);
 				
 			logger.debug("processBindingConfiguration: (pcf8591control) ItemName: {}, Addresses: {}", item.toString(), PCF8591Map.keySet());
-			
 		}catch(Exception e){
 			e.printStackTrace();
-		}
-		logger.debug("pcf8591controlGenericBindingProvider: processBindingConfiguration({},{}) is called!", config.address, config.pinNumber);
-		//parse bindingconfig here ...
-				
+		}						
 	}
 	
 	/* ================================= SELF WRITTEN METHODS - BEGIN ===============================*/
@@ -104,11 +96,11 @@ public class pcf8591controlGenericBindingProvider extends AbstractGenericBinding
 	private void checkOfValidValues(pcf8591controlConfig config, String itemName){
 		if(config.address < 72 || config.address > 80 ){
 			throw new IllegalArgumentException("The given address '" + config.address + "'of the item '" + itemName + "' is invalid! " +
-					"PCA8591 must be between 72-80 (0x48-0x50)");
+					"PCA8591 must be 72-80 (0x48-0x50)");
 		}
 		
 		if(config.pinNumber < 0 || config.pinNumber > 3){
-			throw new IllegalArgumentException("The pinNumber of the item '" + itemName + "'is invalid! Must be between 0-3.");
+			throw new IllegalArgumentException("The pinNumber of the item '" + itemName + "'is invalid! Must be 0-3.");
 		}				
 	}
 		
@@ -138,17 +130,23 @@ public class pcf8591controlGenericBindingProvider extends AbstractGenericBinding
 				pcf8591controlConfig conf = (pcf8591controlConfig) bindingConfig;				
 				logger.debug("handleBoards: check {} !", conf.address);
 				if(mapKey == conf.address){
-					logger.debug("handleBoards: board found with address: {} !", conf.address);
+					logger.debug("removeUnusedBoardsFromMap: board found with address: {} !", conf.address);
 					continue keyLoop;
 				}				
 			}
 			if(!bindingConfigs.values().isEmpty()){
 				PCF8591Map.remove(mapKey);
-				logger.debug("handleBoards: removed board with address: {} !", mapKey);
+				logger.debug("removeUnusedBoardsFromMap: removed board with address: {} !", mapKey);
 			}
 		}
 	}
 	
+	/* ----> The following methods are getter and setter to grant access of the data of this BindingConfiguration. 
+	 * They implement/override the methods of the interface "pcf8591controlBindingProvider.java".   
+	 * The access of them from "pcf8591controlBinding.java" is possible by using the collection "providers" which is 
+	 * inherit from "AbstractBinding.java". 
+	 * Thats the way to communicate and get data from the BindingConfig.
+	 */
 	
 	@Override
 	public int getAddress(String itemName) {
@@ -180,19 +178,22 @@ public class pcf8591controlGenericBindingProvider extends AbstractGenericBinding
 		return false;
 	}
 	
-	
-	public class pcf8591controlConfig implements BindingConfig{
-		int address;
-		int pinNumber;
-	}
-
-
 	@Override
 	public TreeMap<Integer, I2CDevice> getPCF8591Map() {		
 		return PCF8591Map;
 	}
 
-	
 	/* ================================= SELF WRITTEN METHODS - END ===============================*/
 	
+	
+	/* ------------------------ Binding config class ----------------------- */
+	/* This will be used to create a object in processBindingConfiguration
+	 * and add it as Binding configuration (addBindingConfig()) for each item
+	 * which was configured in the *.items file in the openHAB configuration.  
+	 */
+	public class pcf8591controlConfig implements BindingConfig{
+		int address;
+		int pinNumber;
+	}
+
 }

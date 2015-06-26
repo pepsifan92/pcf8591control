@@ -9,11 +9,8 @@
 package org.openhab.binding.pcf8591control;
 
 import java.util.TreeMap;
-
 import org.openhab.core.binding.BindingProvider;
-
 import com.pi4j.io.i2c.I2CDevice;
-import com.pi4j.wiringpi.GpioInterruptListener;
 
 
 /**

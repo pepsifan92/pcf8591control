@@ -1,12 +1,10 @@
 package org.openhab.binding.pcf8591control.internal;
 
-import com.pi4j.io.gpio.Pin;
-
 public class AddressAndPin implements Comparable<AddressAndPin> {
 	public int address;
-	public Pin pin;
+	public int pin;
 	
-	public AddressAndPin(int address, Pin pin) {
+	public AddressAndPin(int address, int pin) {
 		this.address = address;
 		this.pin = pin;
 	}
