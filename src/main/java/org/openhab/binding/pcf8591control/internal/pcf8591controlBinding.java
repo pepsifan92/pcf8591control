@@ -54,22 +54,6 @@ public class pcf8591controlBinding extends AbstractActiveBinding<pcf8591controlB
 		logger.debug("pcf8591controlBinding binding started");
 	}
 			
-	
-	/* ADDED THIS FOR GETTING ALL COMMANDS... ****************************/
-	/**
-	 * @{inheritDoc}
-	 */
-	@Override
-	public void receiveCommand(String itemName, Command command) {
-		// does any provider contain a binding config?
-		if (!providesBindingFor(itemName)) {
-			return;
-		}
-		internalReceiveCommand(itemName, command);
-	}
-	/* ADDED THIS FOR GETTING ALL COMMANDS... ****************************/
-	
-	
 	/**
 	 * Called by the SCR to activate the component with its configuration read from CAS
 	 * 
